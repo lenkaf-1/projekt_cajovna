@@ -521,3 +521,20 @@ textarea {
 #cookie-banner button:hover {
   background-color: #45a049;
 }
+#naspat {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #4a7c59;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 25px;
+  transition: 0.3s ease;
+}
+
+#naspat:hover {
+  background-color: #3a6046;
+  transform: translateY(-2px);
+}

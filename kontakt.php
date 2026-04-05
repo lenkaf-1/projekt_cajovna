@@ -33,7 +33,7 @@
       </ul>
     </div>
 
-    <form class="formular" action="thanku.html" method="get">
+    <form class="formular" action="thanku.php" method="post">
       <h2>Kontaktujte nás</h2>
       <input type="text" name="meno" placeholder="Tvoje meno" required />
       <input type="email" name="email" placeholder="Tvoj e-mail" required />
@@ -56,7 +56,8 @@
       Táto stránka používa cookies.
       <button id="cookie-accept">Rozumiem</button>
     </div>
-<?php require __DIR__ . '/oddelenie/footer.php'; ?>
-<?php require __DIR__ . '/oddelenie/script.php'; ?>
+
+    <?php require __DIR__ . '/oddelenie/footer.php'; ?>
+    <?php require __DIR__ . '/oddelenie/script.php'; ?>
   </body>
 </html>
