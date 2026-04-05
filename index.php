@@ -15,53 +15,8 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">
-            <img
-              src="img/11580448.jpg"
-              alt="Logo"
-              width="50"
-              height="50"
-              class="d-inline-block align-text-top"
-            />
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div
-            class="collapse navbar-collapse justify-content-center"
-            id="navbarNav"
-          >
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link text-white" href="index.html">DOMOV</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="ponuka.html"
-                  >HLAVNÁ PONUKA</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="kontakt.html">KONTAKT</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="o_nas.html">O NÁS</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+    <?php require __DIR__ . '/oddelenie/header.php'; ?>
+
     <div class="pozadie">
       <div>
         <h1 class="textnaobr">Čaj pre pohladenie duše</h1>
@@ -112,26 +67,7 @@
       Táto stránka používa cookies.
       <button id="cookie-accept">Rozumiem</button>
     </div>
-    <footer>
-      <div class="footer-info">
-        <p class="prvycopy">© 2025 Lenka Filipová. Všetky práva vyhradené.</p>
-        <p class="druhycopy">Stránka bola vytvorená na edukačné využitie.</p>
-        <div class="otvaracie-hodiny">
-          <p>Adresa: Hlavné námestie 5, 811 01 Bratislava, Slovensko</p>
-        </div>
-
-        <nav>
-          <a href="o_nas.html">O nás</a> | <a href="kontakt.html">Kontakt</a> |
-          <a href="ponuka.html">Ponuka</a>
-        </nav>
-      </div>
-    </footer>
-
-    <script src="js/app.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
+    <?php require __DIR__ . '/oddelenie/footer.php'; ?>
+<?php require __DIR__ . '/oddelenie/script.php'; ?>
   </body>
 </html>
