@@ -56,7 +56,7 @@
       Táto stránka používa cookies.
       <button id="cookie-accept">Rozumiem</button>
     </div>
-<?php require __DIR__ . '/footer.php'; ?>
-<?php require __DIR__ . '/script.php'; ?>
+<?php require __DIR__ . '/oddelenie/footer.php'; ?>
+<?php require __DIR__ . '/oddelenie/script.php'; ?>
   </body>
 </html>
