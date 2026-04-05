@@ -22,7 +22,7 @@ $gdpr = isset($_POST['gdpr']) ? 'Áno' : 'Nie';
     <p><strong>Správa:</strong> <?= nl2br(htmlspecialchars($sprava)) ?></p>
     <p><strong>GDPR súhlas:</strong> <?= $gdpr ?></p>
 
-    <a href="index.php">Späť na hlavnú stránku</a>
+    <a href="index.php" id="naspat">Späť na hlavnú stránku</a>
 </div>
 
 </body>
