@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <?php require __DIR__ . '/oddelenie/header.php'; ?>
+    <?php require __DIR__ . '/views/header.php'; ?>
 
     <div>
       <h1 class="nasaponuka">Naša ponuka čajov</h1>
@@ -91,7 +91,7 @@
       Táto stránka používa cookies.
       <button id="cookie-accept">Rozumiem</button>
     </div>
-<?php require __DIR__ . '/oddelenie/footer.php'; ?>
+<?php require __DIR__ . '/views/footer.php'; ?>
 <?php require __DIR__ . '/oddelenie/script.php'; ?>
   </body>
 </html>

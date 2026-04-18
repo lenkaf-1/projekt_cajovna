@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <?php require __DIR__ . '/oddelenie/header.php'; ?>
+    <?php require __DIR__ . '/views/header.php'; ?>
 
     <div class="poz">
       <div class="kontakt-content">
@@ -57,7 +57,7 @@
       <button id="cookie-accept">Rozumiem</button>
     </div>
 
-    <?php require __DIR__ . '/oddelenie/footer.php'; ?>
+    <?php require __DIR__ . '/views/footer.php'; ?>
     <?php require __DIR__ . '/oddelenie/script.php'; ?>
   </body>
 </html>

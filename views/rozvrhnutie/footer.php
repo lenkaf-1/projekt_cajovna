@@ -12,3 +12,4 @@
         </nav>
       </div>
     </footer>
+    <?php require __DIR__ . '/../../oddelenie/script.php'; ?>
