@@ -1,6 +1,6 @@
 <footer>
       <div class="footer-info">
-        <p class="prvycopy">© 2025 Lenka Filipová. Všetky práva vyhradené.</p>
+        <p class="prvycopy">© 2026 Lenka Filipová. Všetky práva vyhradené.</p>
         <p class="druhycopy">Stránka bola vytvorená na edukačné využitie.</p>
         <div class="otvaracie-hodiny">
           <p>Adresa: Hlavné námestie 5, 811 01 Bratislava, Slovensko</p>
