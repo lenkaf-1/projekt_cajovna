@@ -22,6 +22,10 @@ class Router {
             case 'ponuka':
                 include __DIR__ . '/../../views/ponuka.php';
                 break;
+            
+            case 'thanku':
+                include __DIR__ . '/../../views/thanku.php';
+                break;
 
             default:
                 echo "404 - stránka neexistuje";
