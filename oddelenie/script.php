@@ -21,10 +21,6 @@ function nextSlide() {
 
 setInterval(nextSlide, 3000);
 
-window.addEventListener("load", function () {
-  alert("Vitaj na stránke!");
-});
-
 if (document.cookie.includes("cookiesAccepted=true")) {
   document.getElementById("cookie-banner").style.display = "none";
 }
