@@ -47,6 +47,14 @@ class Router {
                 exit;
 
             case 'thanku':
+                $contactData = null;
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $contactData = [
+                        'meno' => htmlspecialchars(trim($_POST['meno'] ?? '')),
+                        'email' => htmlspecialchars(trim($_POST['email'] ?? '')),
+                        'sprava' => nl2br(htmlspecialchars(trim($_POST['sprava'] ?? ''))),
+                    ];
+                }
                 include __DIR__ . '/../../views/thanku.php';
                 break;
 
