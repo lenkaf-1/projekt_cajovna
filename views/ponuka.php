@@ -1,5 +1,15 @@
 <div>
   <h1 class="nasaponuka">Naša ponuka čajov</h1>
+  <div class="cart-info">
+    Položiek v košíku: 
+    <?php
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    $cartCount = array_sum($_SESSION['cart'] ?? []);
+    echo $cartCount;
+    ?>
+  </div>
 </div>
 
 <div class="ponukapozadie">

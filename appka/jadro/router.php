@@ -12,16 +12,6 @@ class Router {
 
         $route = $_GET['route'] ?? 'domov';
 
-        if ($route === 'add_to_cart') {
-            (new ProductController())->addToCart();
-            exit;
-        }
-
-        if ($route === 'order') {
-            (new ProductController())->processOrder();
-            exit;
-        }
-
         include __DIR__ . '/../../views/rozvrhnutie/header.php';
 
         switch ($route) {
@@ -47,6 +37,14 @@ class Router {
                 $cartItems = (new ProductController())->getCart();
                 include __DIR__ . '/../../views/kosik.php';
                 break;
+
+            case 'add_to_cart':
+                (new ProductController())->addToCart();
+                exit;
+
+            case 'remove_from_cart':
+                (new ProductController())->removeFromCart();
+                exit;
 
             case 'thanku':
                 include __DIR__ . '/../../views/thanku.php';

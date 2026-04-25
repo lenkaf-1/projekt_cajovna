@@ -5,13 +5,10 @@ require_once __DIR__ . '/../modely/Product.php';
 class ProductController {
 
     public function index() {
-
-        $base = defined('BASE_URL') ? BASE_URL : '/projekt_cajovna/';
-
         return [
-            new Product(1, "Zelený čaj", 4.50, $base . "img/ponukazelenycaj1.jpg"),
-            new Product(2, "Biely čaj", 5.20, $base . "img/whitetea1.jpg"),
-            new Product(3, "Čierny čaj", 3.80, $base . "img/black1.jpg"),
+            new Product(1, "Zelený čaj", 4.50, "/projekt_cajovna/img/ponukazelenycaj1.jpg"),
+            new Product(2, "Biely čaj", 5.20, "/projekt_cajovna/img/whitetea1.jpg"),
+            new Product(3, "Čierny čaj", 3.80, "/projekt_cajovna/img/black1.jpg"),
         ];
     }
 
@@ -21,20 +18,19 @@ class ProductController {
             session_start();
         }
 
-        if (!isset($_GET['id'])) {
-            header("Location: " . (defined('BASE_URL') ? BASE_URL : '/projekt_cajovna/') . "index.php?route=ponuka");
-            exit;
-        }
-
-        $id = (int) $_GET['id'];
+        $id = (int)$_GET['id'];
 
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
         }
 
-        $_SESSION['cart'][$id] = ($_SESSION['cart'][$id] ?? 0) + 1;
+        if (!isset($_SESSION['cart'][$id])) {
+            $_SESSION['cart'][$id] = 1;
+        } else {
+            $_SESSION['cart'][$id]++;
+        }
 
-        header("Location: " . (defined('BASE_URL') ? BASE_URL : '/projekt_cajovna/') . "index.php?route=ponuka");
+        header("Location: index.php?route=ponuka");
         exit;
     }
 
@@ -62,31 +58,18 @@ class ProductController {
         return $cartItems;
     }
 
-    public function processOrder() {
+    public function removeFromCart() {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("Location: " . (defined('BASE_URL') ? BASE_URL : '/projekt_cajovna/') . "index.php?route=kosik");
-            exit;
+        $productId = $_POST['product_id'] ?? null;
+
+        if ($productId && isset($_SESSION['cart'][$productId])) {
+            unset($_SESSION['cart'][$productId]);
         }
 
-        $name = $_POST['name'] ?? '';
-        $email = $_POST['email'] ?? '';
-        $phone = $_POST['phone'] ?? '';
-        $address = $_POST['address'] ?? '';
-
-        $cartItems = $this->getCart();
-
-        if (empty($cartItems)) {
-            header("Location: " . (defined('BASE_URL') ? BASE_URL : '/projekt_cajovna/') . "index.php?route=kosik");
-            exit;
-        }
-
-        unset($_SESSION['cart']);
-
-        header("Location: " . (defined('BASE_URL') ? BASE_URL : '/projekt_cajovna/') . "index.php?route=thanku");
+        header("Location: index.php?route=kosik");
         exit;
     }
 }

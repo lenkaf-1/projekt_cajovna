@@ -12,13 +12,17 @@
                         <p>Cena: <?= number_format($item['product']->getPrice(), 2); ?> €</p>
                         <p>Množstvo: <?= $item['quantity']; ?></p>
                         <p>Celkom: <?= number_format($item['product']->getPrice() * $item['quantity'], 2); ?> €</p>
+                        <form action="index.php?route=remove_from_cart" method="post" style="display:inline;">
+                            <input type="hidden" name="product_id" value="<?= $item['product']->getId(); ?>">
+                            <button type="submit" class="remove-btn">Odobrať</button>
+                        </form>
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
         <div class="cart-total">
-            <h3>Celková suma: 
-                <?php 
+            <h3>Celková suma:
+                <?php
                 $total = 0;
                 foreach ($cartItems as $item) {
                     $total += $item['product']->getPrice() * $item['quantity'];
