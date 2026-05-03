@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body>
+<body class="<?= ($_GET['route'] ?? '') === 'login' ? 'login-page' : '' ?>">
 
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -27,18 +27,20 @@
         />
       </a>
 
-      <a href="index.php?route=kosik" class="cart-icon ms-auto">
-        <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
-          <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1-2 0 1 1 0 0 0 2 0zm7 0a1 1 0 1 1 0 2 1 1 0 0 1-2 0 1 1 0 0 0 2 0z"/>
-        </svg>
-        <span class="cart-count">
-          <?php
-          if (session_status() === PHP_SESSION_NONE) {
-              session_start();
-          }
-          $cartCount = array_sum($_SESSION['cart'] ?? []);
-          echo $cartCount;
-          ?>
+      <a href="index.php?route=kosik" class="cart-icon ms-auto d-flex align-items-center">
+        <img 
+            src="../img/kosik.png" 
+            alt="Košík" 
+            width="35" 
+            height="35"
+            style="filter: invert(1);"
+        />
+
+        <span class="cart-count ms-1">
+            <?php
+            $cartCount = array_sum($_SESSION['cart'] ?? []);
+            echo $cartCount;
+            ?>
         </span>
       </a>
 
@@ -73,12 +75,21 @@
             <a class="nav-link text-white" href="index.php?route=o_nas">O NÁS</a>
           </li>
 
+          <?php if (!isset($_SESSION['user'])): ?>
+              <li class="nav-item">
+                  <a class="nav-link text-white" href="index.php?route=login">PRIHLÁSENIE</a>
+              </li>
+          <?php else: ?>
+              <li class="nav-item">
+                  <a class="nav-link text-white" href="index.php?route=logout">
+                      ODHLÁSIŤ SA (<?= htmlspecialchars($_SESSION['user']) ?>)
+                  </a>
+              </li>
+          <?php endif; ?>
+
         </ul>
       </div>
 
     </div>
   </nav>
 </header>
-
-
-

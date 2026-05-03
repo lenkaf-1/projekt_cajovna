@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../kontrolery/productcontroller.php';
+require_once __DIR__ . '/../kontrolery/logincontroller.php';
 
 class Router {
 
@@ -46,20 +47,34 @@ class Router {
                 (new ProductController())->removeFromCart();
                 exit;
 
+            case 'login':
+                include __DIR__ . '/../../views/login.php';
+                break;
+
+            case 'login_process':
+                (new LoginController())->login();
+                exit;
+
+            case 'logout':
+                (new LoginController())->logout();
+                exit;
+
             case 'thanku':
                 $contactData = null;
+
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $contactData = [
-                        'meno' => htmlspecialchars(trim($_POST['meno'] ?? '')),
-                        'email' => htmlspecialchars(trim($_POST['email'] ?? '')),
+                        'meno'   => htmlspecialchars(trim($_POST['meno'] ?? '')),
+                        'email'  => htmlspecialchars(trim($_POST['email'] ?? '')),
                         'sprava' => nl2br(htmlspecialchars(trim($_POST['sprava'] ?? ''))),
                     ];
                 }
+
                 include __DIR__ . '/../../views/thanku.php';
                 break;
 
             default:
-                echo "404 - stránka neexistuje";
+                echo "<h1>404 - stránka neexistuje</h1>";
         }
 
         include __DIR__ . '/../../views/rozvrhnutie/footer.php';
