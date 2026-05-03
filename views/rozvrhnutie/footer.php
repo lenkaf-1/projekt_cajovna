@@ -7,9 +7,14 @@
     </div>
 
     <nav>
-      <a href="o_nas.html">O nás</a> | <a href="kontakt.html">Kontakt</a> |
-      <a href="ponuka.html">Ponuka</a>
+      <a href="index.php?route=o_nas">O nás</a> |
+      <a href="index.php?route=kontakt">Kontakt</a> |
+      <a href="index.php?route=ponuka">Ponuka</a>
     </nav>
   </div>
 </footer>
+
 <?php require __DIR__ . '/../../oddelenie/script.php'; ?>
+
+</body>
+</html>
