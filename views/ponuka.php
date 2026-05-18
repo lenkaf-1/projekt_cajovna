@@ -1,14 +1,17 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$base = "/projekt_cajovna/";
+$cartCount = array_sum($_SESSION['cart'] ?? []);
+?>
+
 <div>
   <h1 class="nasaponuka">Naša ponuka čajov</h1>
+
   <div class="cart-info">
-    Položiek v košíku: 
-    <?php
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-    $cartCount = array_sum($_SESSION['cart'] ?? []);
-    echo $cartCount;
-    ?>
+    Položiek v košíku: <?= $cartCount ?>
   </div>
 </div>
 
@@ -22,9 +25,13 @@
 
     <div class="product-card">
 
-      <img class="product-img" src="<?= $product->getImage(); ?>" alt="<?= $product->getName(); ?>">
+      <img
+        class="product-img"
+        src="<?= $base . $product->getImage(); ?>"
+        alt="<?= htmlspecialchars($product->getName()); ?>"
+      >
 
-      <h2><?= $product->getName(); ?></h2>
+      <h2><?= htmlspecialchars($product->getName()); ?></h2>
 
       <p class="price">
         <?= number_format($product->getPrice(), 2); ?> €
@@ -52,7 +59,7 @@
 
     <?php foreach ($products as $product): ?>
       <tr>
-        <td><?= $product->getName(); ?></td>
+        <td><?= htmlspecialchars($product->getName()); ?></td>
         <td>100g</td>
         <td><?= number_format($product->getPrice(), 2); ?> €</td>
       </tr>
