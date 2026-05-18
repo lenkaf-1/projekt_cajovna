@@ -14,23 +14,25 @@
   </ul>
 </div>
 
-<form class="formular" action="index.php?route=thanku" method="post">
+<form class="formular" action="index.php?route=contact_send" method="post">
+
   <h2>Kontaktujte nás</h2>
-  <input type="text" name="meno" placeholder="Tvoje meno" required />
-  <input type="email" name="email" placeholder="Tvoj e-mail" required />
-  <textarea
-    name="sprava"
-    placeholder="Tvoja správa"
-    rows="5"
-    required
-  ></textarea>
+
+  <input type="text" name="meno" placeholder="Tvoje meno" required>
+
+  <input type="email" name="email" placeholder="Tvoj e-mail" required>
+
+  <textarea name="sprava" placeholder="Tvoja správa" rows="5" required></textarea>
+
   <div class="gdpr">
     <label>
-      <input type="checkbox" name="gdpr" required />
+      <input type="checkbox" name="gdpr" required>
       Súhlasím so spracovaním osobných údajov podľa GDPR.
     </label>
   </div>
+
   <button class="tla1" type="submit">Odoslať</button>
+
 </form>
 
 <div id="cookie-banner">
