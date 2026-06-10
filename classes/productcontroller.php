@@ -23,6 +23,43 @@ class ProductController
         return isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'admin';
     }
 
+    private function handleImageUpload($fieldName = 'obrazok')
+    {
+        if (!isset($_FILES[$fieldName]) || $_FILES[$fieldName]['error'] == UPLOAD_ERR_NO_FILE) {
+            return null;
+        }
+
+        if ($_FILES[$fieldName]['error'] !== UPLOAD_ERR_OK) {
+            throw new Exception("Chyba pri nahrávaní obrázka.");
+        }
+
+        $file = $_FILES[$fieldName];
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
+        if (!in_array($file['type'], $allowedTypes)) {
+            throw new Exception("Neplatný formát obrázka. Prípustné sú: JPG, PNG, GIF, WEBP.");
+        }
+
+        $maxSize = 5 * 1024 * 1024;
+        if ($file['size'] > $maxSize) {
+            throw new Exception("Obrázok je príliš veľký. Maximum je 5MB.");
+        }
+
+        $uploadDir = __DIR__ . '/../img/produkty/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        $filename = uniqid('produkt_') . '_' . time() . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+        $uploadPath = $uploadDir . $filename;
+
+        if (!move_uploaded_file($file['tmp_name'], $uploadPath)) {
+            throw new Exception("Nepodarilo sa uložiť obrázok.");
+        }
+
+        return 'img/produkty/' . $filename;
+    }
+
     public function index()
     {
         $db = $this->db();
@@ -52,19 +89,33 @@ class ProductController
 
         $db = $this->db();
 
-        $stmt = $db->prepare("
-            INSERT INTO produkty (nazov, cena, obrazok)
-            VALUES (?, ?, ?)
-        ");
+        try {
+            $imagePath = $this->handleImageUpload('obrazok');
 
-        $stmt->execute([
-            $_POST['nazov'] ?? '',
-            $_POST['cena'] ?? 0,
-            $_POST['obrazok'] ?? ''
-        ]);
+            if (!$imagePath) {
+                echo "Obrázok je povinný!";
+                echo "<br><a href='index.php?route=admin_create'>Späť</a>";
+                exit;
+            }
 
-        header("Location: index.php?route=admin_produkty");
-        exit;
+            $stmt = $db->prepare("
+                INSERT INTO produkty (nazov, cena, obrazok)
+                VALUES (?, ?, ?)
+            ");
+
+            $stmt->execute([
+                $_POST['nazov'] ?? '',
+                $_POST['cena'] ?? 0,
+                $imagePath
+            ]);
+
+            header("Location: index.php?route=admin_produkty");
+            exit;
+        } catch (Exception $e) {
+            echo "Chyba: " . htmlspecialchars($e->getMessage());
+            echo "<br><a href='index.php?route=admin_create'>Späť</a>";
+            exit;
+        }
     }
 
     public function updateProduct()
@@ -75,21 +126,42 @@ class ProductController
 
         $db = $this->db();
 
-        $stmt = $db->prepare("
-            UPDATE produkty
-            SET nazov = ?, cena = ?, obrazok = ?
-            WHERE id = ?
-        ");
+        try {
+            $imagePath = null;
 
-        $stmt->execute([
-            $_POST['nazov'] ?? '',
-            $_POST['cena'] ?? 0,
-            $_POST['obrazok'] ?? '',
-            $_POST['id'] ?? 0
-        ]);
+            
+            if (isset($_FILES['obrazok']) && $_FILES['obrazok']['error'] !== UPLOAD_ERR_NO_FILE) {
+                $imagePath = $this->handleImageUpload('obrazok');
+            }
 
-        header("Location: index.php?route=admin_produkty");
-        exit;
+            
+            if ($imagePath === null) {
+                $stmt = $db->prepare("SELECT obrazok FROM produkty WHERE id = ?");
+                $stmt->execute([(int)($_POST['id'] ?? 0)]);
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $imagePath = $result['obrazok'] ?? '';
+            }
+
+            $stmt = $db->prepare("
+                UPDATE produkty
+                SET nazov = ?, cena = ?, obrazok = ?
+                WHERE id = ?
+            ");
+
+            $stmt->execute([
+                $_POST['nazov'] ?? '',
+                $_POST['cena'] ?? 0,
+                $imagePath,
+                $_POST['id'] ?? 0
+            ]);
+
+            header("Location: index.php?route=admin_produkty");
+            exit;
+        } catch (Exception $e) {
+            echo "Chyba: " . htmlspecialchars($e->getMessage());
+            echo "<br><a href='index.php?route=admin_edit&id=" . htmlspecialchars($_POST['id'] ?? '') . "'>Späť</a>";
+            exit;
+        }
     }
 
     public function deleteProduct()
