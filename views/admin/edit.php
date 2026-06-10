@@ -6,7 +6,7 @@
         <p>Produkt sa nenašiel.</p>
     <?php else: ?>
 
-        <form class="admin-form" action="index.php?route=admin_update" method="post">
+        <form class="admin-form" action="index.php?route=admin_update" method="post" enctype="multipart/form-data">
 
             <input type="hidden" name="id" value="<?= $product->getId(); ?>">
 
@@ -20,9 +20,8 @@
                    value="<?= $product->getPrice(); ?>"
                    required>
 
-            <label>Obrázok (cesta)</label>
-            <input type="text" name="obrazok"
-                   value="<?= htmlspecialchars($product->getImage()); ?>">
+            <label>Obrázok (nechaj prázdne ak nechceš zmeniť)</label>
+            <input type="file" name="obrazok" accept="image/*">
 
             <?php if ($product->getImage()): ?>
                 <div style="margin-top:10px;">
